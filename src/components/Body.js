@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withIsOpenLabel } from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
@@ -10,6 +10,10 @@ const Body = () => {
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
 
   const [searchText, setSearchText] = useState("");
+
+  const RestaurantCardIsOpen = withIsOpenLabel(RestaurantCard);
+
+  console.log("List of res:-", listOfRestaurants);
 
   useEffect(() => {
     fetchData();
@@ -25,6 +29,10 @@ const Body = () => {
     // Optional Chaining
     setListOfRestraunt(
       json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+    console.log(
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+        .promoted
     );
     setFilteredRestaurant(
       json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
@@ -85,7 +93,17 @@ const Body = () => {
             key={restaurant.info.id}
             to={"/restaurants/" + restaurant.info.id}
           >
-            <RestaurantCard key={restaurant.info.id} resData={restaurant} />
+            {
+              // If the restaurant is open then we will add a label isOpen to it.
+              restaurant.info.isOpen ? (
+                <RestaurantCardIsOpen
+                  key={restaurant.info.id}
+                  resData={restaurant}
+                />
+              ) : (
+                <RestaurantCard key={restaurant.info.id} resData={restaurant} />
+              )
+            }
           </Link>
         ))}
       </div>
