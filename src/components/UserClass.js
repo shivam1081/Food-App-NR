@@ -10,14 +10,11 @@ class UserClass extends React.Component {
         name: "Dummy",
       },
     };
-    // console.log(this.props.name + "Child Constructor");
   }
   // Called when the component is mounted
   async componentDidMount() {
-    // console.log(this.props.name + "Child Component Did Mount");
     const data = await fetch("https://api.github.com/users/shivam1081");
     const json = await data.json();
-    console.log(json);
     this.setState({ userInfo: json });
   }
 
@@ -28,7 +25,6 @@ class UserClass extends React.Component {
   render() {
     const { name, location, avatar_url } = this.state.userInfo;
     const { count } = this.state;
-    // console.log(this.props.name + "Child Render");
     return (
       <div className="user-card">
         {/* Never update state variables directly like this.state.count=something. It will not update. */}

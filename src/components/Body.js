@@ -1,19 +1,19 @@
 import RestaurantCard, { withIsOpenLabel } from "./RestaurantCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   // Local State Variable - Super powerful variabl
   const [listOfRestaurants, setListOfRestraunt] = useState([]);
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
+  const { loggedInUser, setUserName } = useContext(UserContext);
 
   const [searchText, setSearchText] = useState("");
 
   const RestaurantCardIsOpen = withIsOpenLabel(RestaurantCard);
-
-  console.log("List of res:-", listOfRestaurants);
 
   useEffect(() => {
     fetchData();
@@ -30,10 +30,7 @@ const Body = () => {
     setListOfRestraunt(
       json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
-    console.log(
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-        .promoted
-    );
+
     setFilteredRestaurant(
       json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
@@ -61,7 +58,6 @@ const Body = () => {
             onClick={() => {
               // Filter the restraunt cards and update the UI
               // searchText
-              console.log(searchText);
 
               const filteredRestaurant = listOfRestaurants.filter((res) =>
                 res.info.name.toLowerCase().includes(searchText.toLowerCase())
@@ -85,6 +81,14 @@ const Body = () => {
           >
             Top Rated Restaurants
           </button>
+        </div>
+        <div className="search m-4 p-4 flex items-center">
+          <label className="m-2">User Name: </label>
+          <input
+            className="border border-black p-2"
+            onChange={(e) => setUserName(e.target.value)}
+            value={loggedInUser}
+          />
         </div>
       </div>
       <div className="flex flex-wrap ">

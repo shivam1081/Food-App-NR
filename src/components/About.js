@@ -1,21 +1,24 @@
 import React from "react";
 import User from "./User";
 import UserClass from "./UserClass";
+import UserContext from "../utils/UserContext";
 
 class About extends React.Component {
   constructor(props) {
     super(props);
-    // console.log("Parent Constructor");
   }
-  componentDidMount() {
-    // console.log("Parent Component Did Mount");
-  }
+  componentDidMount() {}
 
   render() {
-    // console.log("Parent Render");
     return (
       <div>
         <h1>This is the about us page for Namaste React</h1>
+        <div>
+          LoggedIn User
+          <UserContext.Consumer>
+            {({ loggedInUser }) => <h1 className="text-lg font-bold">{loggedInUser}</h1>}
+          </UserContext.Consumer>
+        </div>
         {/* <User name={"Name: Shivam function"} /> */}
         <UserClass name={"First Component"} location={"Location: Sagar"} />
         {/* <UserClass
