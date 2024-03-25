@@ -5,13 +5,18 @@ import UserContext from "../utils/UserContext";
 const RestaurantCard = (props) => {
   const { resData } = props;
 
-  const { loggedInUser}=useContext(UserContext)
+  // console.log(resData);
+
+  const { loggedInUser } = useContext(UserContext);
 
   const { cloudinaryImageId, name, avgRating, cuisines, costForTwo, sla } =
     resData?.info;
 
   return (
-    <div className="m-4 p-4 w-[250px] rounded-lg bg-gray-100 hover:shadow-2xl">
+    <div
+      data-testid="resCard"
+      className="m-4 p-4 w-[250px] rounded-lg bg-gray-100 hover:shadow-2xl"
+    >
       <img
         className="rounded-lg"
         alt="res-logo"
@@ -35,7 +40,9 @@ export const withIsOpenLabel = (RestaurantCard) => {
   return (props) => {
     return (
       <div>
-        <label className="absolute bg-green-500 text-white m-2 p-2 rounded-lg">IsOpen</label>
+        <label className="absolute bg-green-500 text-white m-2 p-2 rounded-lg">
+          IsOpen
+        </label>
         <RestaurantCard {...props} />
       </div>
     );

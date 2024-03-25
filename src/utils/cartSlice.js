@@ -15,7 +15,7 @@ const cartSlice = createSlice({
     },
     clearCart: (state) => {
       // This basically mutates the state . If we do state=[] then that state is local variable and main state is not changed
-      console.log(current(state));
+      // console.log(current(state));
       state.items.length = 0;
       // We can also do return {items:[]} as RTK says mutate the exisiting state or return a new state. Basically originalState={items:[]}
     },
